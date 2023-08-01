@@ -6,7 +6,7 @@ var fieldStats;
 var atr = new XMLHttpRequest();
 var pr = new XMLHttpRequest();
 var srch = new XMLHttpRequest();
-const awr = ["NLAS","ALAS", "NLMVP","ALMVP","NLHAA","ALHAA","NLGG","ALGG","NLSS","ALSS","NLCY","ALCY","WSCHAMP","NLROY","ALROY","ROY","MVP"];
+const awr = ["NLAS","ALAS", "NLMVP","ALMVP","NLHAA","ALHAA","NLGG","ALGG","NLSS","ALSS","NLCY","ALCY","WSCHAMP","NLROY","ALROY","ROY","MVP","WSMVP"];
 const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158 ];
 
 
@@ -60,8 +60,13 @@ function setStats(person) {
 		fieldStats = person.stats.filter(e => e.group.displayName == "fielding")[0].splits;
 	}
 }
-function getAwards(yr) {
-	aw = awards.filter(e => (e.date.substring(0,4)) == (yr)).map(e => e.id).filter(e => awr.includes(e));
+function getAwards(yr, tm=0) {
+	var aw;
+	if (tm > 0) {
+		aw = awards.filter(e => (e.date.substring(0,4)) == (yr) && e.team.id == tm).map(e => e.id).filter(e => awr.includes(e));
+	} else {
+		aw = awards.filter(e => (e.date.substring(0,4)) == (yr)).map(e => e.id).filter(e => awr.includes(e));
+	}
 //	aw = aw.map(e => e.id.substring(2));
 	return aw.join(",");
 }
@@ -143,7 +148,12 @@ function setTable(pl) {
 		}
 		yr.appendChild(statPush[24]);
 		if (awards.length > 0) {
-			aw = getAwards(hitStats[i].season);
+			var aw;
+			if (hitStats[i].numTeams) {
+				aw = getAwards(hitStats[i].season);
+			} else {
+				aw = getAwards(hitStats[i].season,hitStats[i].team.id);
+			}
 			statPush[25].innerText = aw;//.join(",");
 			// for (var i = 0; i < aw.length; i++) {
 				// statPush.innerText = aw[i];
@@ -230,7 +240,12 @@ function setTablePitch(pl) {
 		statPush[24].innerText = pitchStats[i].stat.strikeoutWalkRatio;
 		yr.appendChild(statPush[24]);
 		if (awards.length > 0) {
-			aw = getAwards(pitchStats[i].season);
+			var aw;
+			if (hitStats[i].numTeams) {
+				aw = getAwards(pitchStats[i].season);
+			} else {
+				aw = getAwards(pitchStats[i].season,pitchStats[i].team.id);
+			}
 			statPush[25].innerText = aw;//.join(",");
 			// for (var i = 0; i < aw.length; i++) {
 				// statPush.innerText = aw[i];
