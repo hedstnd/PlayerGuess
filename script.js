@@ -241,7 +241,7 @@ function setTablePitch(pl) {
 		yr.appendChild(statPush[24]);
 		if (awards.length > 0) {
 			var aw;
-			if (hitStats[i].numTeams) {
+			if (pitchStats[i].numTeams) {
 				aw = getAwards(pitchStats[i].season);
 			} else {
 				aw = getAwards(pitchStats[i].season,pitchStats[i].team.id);
