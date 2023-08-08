@@ -8,3 +8,12 @@ table, th, tr, td {
 body {
 	text-align: center;
 }
+#stats {
+	overflow-x: scroll;
+}
+#autocom {
+	overflow-y: scroll;
+}
+ul {
+	list-style-type: none;
+}

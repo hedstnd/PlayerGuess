@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head><title>Player Guess</title>
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
 <link rel="stylesheet" href="style.css"/><script src="script.js"></script>
+<style type="text/css" id="style"></style>
 </head>
 <body>
 <h1 id="corr"> </h1>
 <div id="stats"><table><tbody id="tg"></tbody></table></div>
 <br/>
-<input id="guess" type="text" oninput="t()">
+<input id="guess" type="text" oninput="t()"><button onclick = 'giveUp()' id='btn'>Give Up</button>
 <div id = "comp"><ul id="autocom"></ul></div>
 </body>
 </html>
