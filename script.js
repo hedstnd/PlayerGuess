@@ -174,7 +174,7 @@ function setTable(pl) {
 		// for (var q = 0; q < 26; q++) {
 			// yr.appendChild(statPush[i]);
 		// }
-		if (oneTeam || hitStats[i].numTeams) {
+		if ((oneTeam || hitStats[i].numTeams) && hitRank.length > 0) {
 			for (var j = 2; j < 24; j++) {
 				if (isHitLeader(hitStats[i].season,hitCats[j])) {
 					statPush[j].style.fontWeight = 'bold';
@@ -275,7 +275,7 @@ function setTablePitch(pl) {
 		// for (var q = 0; q < 26; q++) {
 			// yr.appendChild(statPush[i]);
 		// }
-		if (oneTeam || pitchStats[i].numTeams) {
+		if ((oneTeam || pitchStats[i].numTeams) && ptichRank.length > 0) {
 			for (var j = 2; j < 24; j++) {
 				if (isPitchLeader(pitchStats[i].season,pitchCats[j])) {
 					statPush[j].style.fontWeight = 'bold';
