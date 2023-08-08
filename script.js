@@ -3,6 +3,10 @@ var awards;
 var hitStats;
 var pitchStats;
 var fieldStats;
+var hitRank;
+var pitchRank;
+const hitCats = ["yr","tm","gamesPlayed","plateAppearances","atBats","runs","hits","doubles","triples","homeRuns","rbi","stolenBases","caughtStealing","baseOnBalls","strikeOuts","avg","obp","ops","totalBases","groundIntoDoublePlay","hitByPitch","sacBunts","sacFlies","intentionalWalks","pos","awards"];
+const pitchCats = ["yr","tm","wins","losses","era","gamesPitched","gamesStarted","gamesFinished","completeGames","shutouts","saves","inningsPitched","hits","runs","earnedRuns","homeRuns","baseOnBalls","intentionalWalks","strikeOuts","hitBatsmen","balks","wildPitches","battersFaced","whip","strikeoutWalkRatio","awards"];
 var atr = new XMLHttpRequest();
 var pr = new XMLHttpRequest();
 var srch = new XMLHttpRequest();
@@ -14,7 +18,7 @@ const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,  
 window.onload = function() {
 	var que = window.location.search.substring(1);
 	if (que.length > 0) {
-		pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[yearByYear])");
+		pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[yearByYear,rankingsByYear])");
 		pr.responseType = 'json';
 		pr.send();
 	} else {
@@ -26,7 +30,7 @@ window.onload = function() {
 }
 atr.onload = function() {
 	pId = atr.response.roster[Math.round(Math.random() * atr.response.roster.length) - 1].person.id;
-	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[yearByYear])");
+	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[yearByYear,rankingsByYear])");
 	pr.responseType = 'json';
 	pr.send();
 }
@@ -54,10 +58,12 @@ srch.onload = function() {
 
 function setStats(person) {
 	if (isPitcher(person)) {
-		 pitchStats = person.stats.filter(e => e.group.displayName == "pitching")[0].splits;
+		 pitchStats = person.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "yearByYear")[0].splits;
+		 pitchRank = person.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "rankingsByYear")[0].splits;
 	} else {
-		hitStats = person.stats.filter(e => e.group.displayName == "hitting")[0].splits;
-		fieldStats = person.stats.filter(e => e.group.displayName == "fielding")[0].splits;
+		hitStats = person.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "yearByYear")[0].splits;
+		fieldStats = person.stats.filter(e => e.group.displayName == "fielding" && e.type.displayName == "yearByYear")[0].splits;
+		hitRank = person.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "rankingsByYear")[0].splits;
 	}
 }
 function getAwards(yr, tm=0) {
@@ -85,6 +91,7 @@ function setTable(pl) {
 	for (var i = 0; i < hitStats.length; i++) {
 		var yr = document.createElement("tr");
 		var statPush = [];
+		var oneTeam = getHitStats(hitStats[i].season).length == 1;
 		for (var j = 0; j < 26; j++) {
 			// console.log(j);
 			statPush.push(document.createElement("td"));
@@ -167,6 +174,13 @@ function setTable(pl) {
 		// for (var q = 0; q < 26; q++) {
 			// yr.appendChild(statPush[i]);
 		// }
+		if (oneTeam || hitStats[i].numTeams) {
+			for (var j = 2; j < 24; j++) {
+				if (isHitLeader(hitStats[i].season,hitCats[j])) {
+					statPush[j].style.fontWeight = 'bold';
+				}
+			}
+		}
 		document.getElementById("tg").appendChild(yr);
 		
 		// yr.push("</td></tr>");
@@ -182,6 +196,7 @@ function setTablePitch(pl) {
 	for (var i = 0; i < pitchStats.length; i++) {
 		var yr = document.createElement("tr");
 		var statPush = [];
+		var oneTeam = getPitchStats(pitchStats[i].season).length == 1;
 		for (var j = 0; j < 26; j++) {
 			// console.log(j);
 			statPush.push(document.createElement("td"));
@@ -260,6 +275,13 @@ function setTablePitch(pl) {
 		// for (var q = 0; q < 26; q++) {
 			// yr.appendChild(statPush[i]);
 		// }
+		if (oneTeam || pitchStats[i].numTeams) {
+			for (var j = 2; j < 24; j++) {
+				if (isPitchLeader(pitchStats[i].season,pitchCats[j])) {
+					statPush[j].style.fontWeight = 'bold';
+				}
+			}
+		}
 		document.getElementById("tg").appendChild(yr);
 		
 		// yr.push("</td></tr>");
@@ -461,4 +483,16 @@ function giveUp() {
 	document.getElementById("guess").value = "";
 	document.getElementById("guess").setAttribute("disabled",true);
 	document.getElementById("btn").setAttribute("disabled",true);
+}
+function getHitStats(season) {
+	return hitStats.filter(e => e.season == season);
+}
+function isHitLeader(year,cat) {
+	return hitRank.filter(e => e.season == year)[0].stat[cat] == 1 || hitRank.filter(e => e.season == year)[0].stat[cat] == "1";
+}
+function getPitchStats(season) {
+	return pitchStats.filter(e => e.season == season);
+}
+function isPitchLeader(year,cat) {
+	return pitchRank.filter(e => e.season == year)[0].stat[cat] == 1 || pitchRank.filter(e => e.season == year)[0].stat[cat] == "1";
 }
