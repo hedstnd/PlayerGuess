@@ -260,11 +260,11 @@ function setTablePitch(pl) {
 		yr.appendChild(statPush[24]);
 		if (awards.length > 0) {
 			var aw;
-			if (pitchStats[i].numTeams) {
+			if (pitchStats[i].numTeams || oneTeam) {
 				aw = getAwards(pitchStats[i].season);
-			} else {
-				aw = getAwards(pitchStats[i].season,pitchStats[i].team.id);
-			}
+			} //else {
+				// aw = getAwards(pitchStats[i].season,pitchStats[i].team.id);
+			// }
 			statPush[25].innerText = aw;//.join(",");
 			// for (var i = 0; i < aw.length; i++) {
 				// statPush.innerText = aw[i];
