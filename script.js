@@ -156,11 +156,9 @@ function setTable(pl) {
 		}
 		yr.appendChild(statPush[24]);
 		if (awards.length > 0) {
-			var aw;
+			var aw = "";
 			if (hitStats[i].numTeams) {
 				aw = getAwards(hitStats[i].season);
-			} else {
-				aw = getAwards(hitStats[i].season,hitStats[i].team.id);
 			}
 			statPush[25].innerText = aw;//.join(",");
 			// for (var i = 0; i < aw.length; i++) {
@@ -180,6 +178,10 @@ function setTable(pl) {
 					statPush[j].style.fontWeight = 'bold';
 				}
 			}
+		}
+		if (!oneTeam && !hitStats[i].numTeams) {
+			// console.log('two team year');
+			yr.style.color = 'gray';
 		}
 		document.getElementById("tg").appendChild(yr);
 		
@@ -281,6 +283,10 @@ function setTablePitch(pl) {
 					statPush[j].style.fontWeight = 'bold';
 				}
 			}
+		}
+		if (!oneTeam && !pitchStats[i].numTeams) {
+			// console.log('two team year');
+			yr.style.color = 'gray';
 		}
 		document.getElementById("tg").appendChild(yr);
 		
