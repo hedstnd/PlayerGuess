@@ -259,7 +259,7 @@ function setTablePitch(pl) {
 		statPush[24].innerText = pitchStats[i].stat.strikeoutWalkRatio;
 		yr.appendChild(statPush[24]);
 		if (awards.length > 0) {
-			var aw;
+			var aw = "";
 			if (pitchStats[i].numTeams || oneTeam) {
 				aw = getAwards(pitchStats[i].season);
 			} //else {
