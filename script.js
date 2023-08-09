@@ -157,7 +157,7 @@ function setTable(pl) {
 		yr.appendChild(statPush[24]);
 		if (awards.length > 0) {
 			var aw = "";
-			if (hitStats[i].numTeams) {
+			if (hitStats[i].numTeams || oneTeam) {
 				aw = getAwards(hitStats[i].season);
 			}
 			statPush[25].innerText = aw;//.join(",");
