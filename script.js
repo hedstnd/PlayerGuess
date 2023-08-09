@@ -10,7 +10,7 @@ const pitchCats = ["yr","tm","wins","losses","era","gamesPitched","gamesStarted"
 var atr = new XMLHttpRequest();
 var pr = new XMLHttpRequest();
 var srch = new XMLHttpRequest();
-const awr = ["NLAS","ALAS", "NLMVP","ALMVP","NLHAA","ALHAA","NLGG","ALGG","NLSS","ALSS","NLCY","ALCY","WSCHAMP","NLROY","ALROY","ROY","MVP","WSMVP"];
+const awr = ["NLAS","ALAS", "NLMVP","ALMVP","NLHAA","ALHAA","NLGG","ALGG","NLSS","ALSS","NLCY","ALCY","WSCHAMP","NLROY","ALROY","ROY","MVP","WSMVP","ALAWARD","NLAWARD","ALCHALM","NLCHALM"];
 const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158 ];
 
 
@@ -74,7 +74,7 @@ function getAwards(yr, tm=0) {
 		aw = awards.filter(e => (e.date.substring(0,4)) == (yr)).map(e => e.id).filter(e => awr.includes(e));
 	}
 //	aw = aw.map(e => e.id.substring(2));
-	return aw.join(",");
+	return aw.join(",").replaceAll("CHALM","MVP").replaceAll("AWARD","MVP");
 }
 
 function isPitcher(person) {
