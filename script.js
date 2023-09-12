@@ -349,15 +349,12 @@ function setTablePitch(pl) {
 	carFirst.setAttribute("colspan","2");
 	car.appendChild(carFirst);
 	var careerNums = pl.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "career")[0].splits[0].stat;
-	for (var i = 2; i < 24; i++) {
+	for (var i = 2; i < 25; i++) {
 		var thisStat = document.createElement("th");
 		thisStat.innerText = careerNums[pitchCats[i]];
 		thisStat.id = pitchCats[i];
 		car.appendChild(thisStat);
 	}
-	carPos = document.createElement("th");
-	carPos.innerText = getPos("career",0);
-	car.appendChild(carPos);
 	car.appendChild(document.createElement("th"));
 	document.getElementById("tg").appendChild(car);
 	document.getElementById("tg").innerHTML = document.getElementById("tg").innerHTML.replaceAll("undefined","-");
