@@ -40,6 +40,7 @@ atL.onload = function() {
 }
 atL2.onload = function() {
 	allTimeLead = allTimeLead.concat(atL2.response.leagueLeaders.filter(e => e.statGroup == "hitting" || e.statGroup == "pitching"));
+	console.log(allTimeLead);
 	if (isPitcher(player)) {
 		for (var i = 0; i < pitchCats.length; i++) {
 			if (allTimeRecord(pitchCats[i],"pitching")) {
@@ -47,9 +48,11 @@ atL2.onload = function() {
 				document.getElementById(pitchCats[i]).style.fontStyle = "italic";
 			}
 		}
-	}	else {
-		for (var i = 0; i < hitCats.length; i++) {
+	} else {
+		for (var i = 2; i < hitCats.length; i++) {
+			console.log("hi" + allTimeRecord(hitCats[i],"hitting"));
 			if (allTimeRecord(hitCats[i],"hitting")) {
+				console.log(hitCats[i]);
 				document.getElementById(hitCats[i]).style.backgroundColor = "gold";
 				document.getElementById(hitCats[i]).style.fontStyle = "italic";
 			}
@@ -590,7 +593,7 @@ function getAbbrev(abbr) {
 		return "onBasePercentage";
 	} else if (abbr=="ops") {
 		return "onBasePlusSlugging";
-	} else if (abbr=="gidp") {
+	} else if (abbr=="groundIntoDoublePlay") {
 		return "groundIntoDoublePlays";
 	} else if (abbr == "hitByPitch") {
 		return "hitByPitches";
