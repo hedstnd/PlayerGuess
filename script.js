@@ -327,7 +327,7 @@ function setTablePitch(pl) {
 		// for (var q = 0; q < 26; q++) {
 			// yr.appendChild(statPush[i]);
 		// }
-		if (parseInt(pitchRank[0].season) >= parseInt(pitchStats[i].season) && (oneTeam || pitchStats[i].numTeams) && pitchRank.length > 0 && parseInt(pitchStats[i].season) > 1900) {
+		if ((oneTeam || pitchStats[i].numTeams) && pitchRank.length > 0 && parseInt(pitchStats[i].season) > 1900 && parseInt(pitchRank[0].season) >= parseInt(pitchStats[i].season)) {
 			for (var j = 2; j < 24; j++) {
 				if (isPitchLeader(pitchStats[i].season,pitchCats[j])) {
 					statPush[j].style.fontWeight = 'bold';
