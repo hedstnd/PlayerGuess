@@ -4,12 +4,15 @@ var hitStats;
 var pitchStats;
 var fieldStats;
 var hitRank;
+var allTimeLead;
 var pitchRank;
 const hitCats = ["yr","tm","gamesPlayed","plateAppearances","atBats","runs","hits","doubles","triples","homeRuns","rbi","stolenBases","caughtStealing","baseOnBalls","strikeOuts","avg","obp","ops","totalBases","groundIntoDoublePlay","hitByPitch","sacBunts","sacFlies","intentionalWalks","pos","awards"];
 const pitchCats = ["yr","tm","wins","losses","era","gamesPitched","gamesStarted","gamesFinished","completeGames","shutouts","saves","inningsPitched","hits","runs","earnedRuns","homeRuns","baseOnBalls","intentionalWalks","strikeOuts","hitBatsmen","balks","wildPitches","battersFaced","whip","strikeoutWalkRatio","awards"];
 var atr = new XMLHttpRequest();
 var pr = new XMLHttpRequest();
 var srch = new XMLHttpRequest();
+var atL = new XMLHttpRequest();
+var atL2 = new XMLHttpRequest();
 const awr = ["NLAS","ALAS", "NLMVP","ALMVP","NLHAA","ALHAA","NLGG","ALGG","NLSS","ALSS","NLCY","ALCY","WSCHAMP","NLROY","ALROY","ROY","MVP","WSMVP","ALAWARD","NLAWARD","ALCHALM","NLCHALM"];
 const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158 ];
 
@@ -18,7 +21,7 @@ const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,  
 window.onload = function() {
 	var que = window.location.search.substring(1);
 	if (que.length > 0) {
-		pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[yearByYear,rankingsByYear])");
+		pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
 		pr.responseType = 'json';
 		pr.send();
 	} else {
@@ -27,10 +30,35 @@ window.onload = function() {
 		atr.responseType = 'json'
 		atr.send();
 	}
+	
+}
+atL.onload = function() {
+	allTimeLead = atL.response.leagueLeaders.filter(e => e.statGroup == "pitching" || e.statGroup == "hitting");
+	atL2.open("GET","https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=plateAppearances,atBats,runs,hits,doubles,triples,homeRuns,rbi,stolenBases,caughtStealing,baseOnBalls,strikeOuts,avg,obp,ops,totalBases,gidp,hitByPitch,sacBunts,sacFlies,intentionalWalks&statType=career&limit=1");
+	atL2.responseType = 'json';
+	atL2.send();
+}
+atL2.onload = function() {
+	allTimeLead = allTimeLead.concat(atL2.response.leagueLeaders.filter(e => e.statGroup == "hitting" || e.statGroup == "pitching"));
+	if (isPitcher) {
+		for (var i = 0; i < pitchCats.length; i++) {
+			if (allTimeRecord(pitchCats[i],"pitching")) {
+				document.getElementById(pitchCats[i]).style.backgroundColor = "gold";
+				document.getElementById(pitchCats[i]).style.fontStyle = "italic";
+			}
+		}
+	}	else {
+		for (var i = 0; i < hitCats.length; i++) {
+			if (allTimeRecord(hitCats[i],"hitting")) {
+				document.getElementById(hitCats[i]).style.backgroundColor = "gold";
+				document.getElementById(hitCats[i]).style.fontStyle = "italic";
+			}
+		}
+	}
 }
 atr.onload = function() {
 	pId = atr.response.roster[Math.round(Math.random() * atr.response.roster.length) - 1].person.id;
-	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[yearByYear,rankingsByYear])");
+	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
 	pr.responseType = 'json';
 	pr.send();
 }
@@ -46,6 +74,9 @@ pr.onload = function() {
 	var tab = setTable(player);
 	console.log(tab);
 	// document.getElementById("stats").innerHTML = tab.join("");
+	atL.open("GET","https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=wins,losses,era,completeGames,shutouts,saves,inningsPitched,earnedRuns,hitBatsmen,balks,wildPitches,battersFaced,whip,strikeoutWalkRatio&statType=career&limit=1");
+	atL.responseType="json";
+	atL.send();
 }
 
 srch.onload = function() {
@@ -187,7 +218,26 @@ function setTable(pl) {
 		
 		// yr.push("</td></tr>");
 		// ret.push(yr.join(""));
+
 	}
+	var car = document.createElement("tr");
+	var carFirst = document.createElement("th");
+	carFirst.innerText = "Career";
+	carFirst.setAttribute("colspan","2");
+	car.appendChild(carFirst);
+	var careerNums = pl.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "career")[0].splits[0].stat;
+	for (var i = 2; i < 24; i++) {
+		var thisStat = document.createElement("th");
+		thisStat.innerText = careerNums[hitCats[i]];
+		thisStat.id = hitCats[i];
+		car.appendChild(thisStat);
+	}
+	carPos = document.createElement("th");
+	carPos.innerText = getPos("career",0);
+	car.appendChild(carPos);
+	car.appendChild(document.createElement("th"));
+	document.getElementById("tg").appendChild(car);
+	document.getElementById("tg").innerHTML = document.getElementById("tg").innerHTML.replaceAll("undefined","-");
 	return true;
 }
 
@@ -293,6 +343,24 @@ function setTablePitch(pl) {
 		// yr.push("</td></tr>");
 		// ret.push(yr.join(""));
 	}
+	var car = document.createElement("tr");
+	var carFirst = document.createElement("th");
+	carFirst.innerText = "Career";
+	carFirst.setAttribute("colspan","2");
+	car.appendChild(carFirst);
+	var careerNums = pl.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "career")[0].splits[0].stat;
+	for (var i = 2; i < 24; i++) {
+		var thisStat = document.createElement("th");
+		thisStat.innerText = careerNums[pitchCats[i]];
+		thisStat.id = pitchCats[i];
+		car.appendChild(thisStat);
+	}
+	carPos = document.createElement("th");
+	carPos.innerText = getPos("career",0);
+	car.appendChild(carPos);
+	car.appendChild(document.createElement("th"));
+	document.getElementById("tg").appendChild(car);
+	document.getElementById("tg").innerHTML = document.getElementById("tg").innerHTML.replaceAll("undefined","-");
 	return true;
 }
 
@@ -320,7 +388,12 @@ function incorrect(id) {
 }
 
 function getPos(yr,tm) {
-	ls = fieldStats.filter(e => parseInt(e.season) == parseInt(yr) && ((e.team && e.team.id == tm) || e.numTeams == tm));
+	var ls = [];
+	if (yr != "career") {
+		ls = fieldStats.filter(e => parseInt(e.season) == parseInt(yr) && ((e.team && e.team.id == tm) || e.numTeams == tm));
+	} else {
+		ls = player.stats.filter(e => e.group.displayName == "fielding" && e.type.displayName == "career")[0].splits;
+	}
 	ls = ls.sort(function(a,b) {return b.stat.gamesPlayed-a.stat.gamesPlayed});
 	ret = "";
 	for (var i = 0; i < ls.length; i++) {
@@ -494,6 +567,9 @@ function getHitStats(season) {
 	return hitStats.filter(e => e.season == season);
 }
 function isHitLeader(year,cat) {
+	if (year == "career") {
+		return player.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "rankings")[0].splits[cat]
+	}
 	return hitRank.filter(e => e.season == year)[0].stat[cat] == 1 || hitRank.filter(e => e.season == year)[0].stat[cat] == "1";
 }
 function getPitchStats(season) {
@@ -501,4 +577,39 @@ function getPitchStats(season) {
 }
 function isPitchLeader(year,cat) {
 	return pitchRank.filter(e => e.season == year)[0].stat[cat] == 1 || pitchRank.filter(e => e.season == year)[0].stat[cat] == "1";
+}
+function getAbbrev(abbr) {
+	if (abbr=="plateAppearances") {
+		return "totalPlateAppearances";
+	} else if (abbr=="rbi") {
+		return "runsBattedIn";
+	} else if (abbr == "baseOnBalls") {
+		return "walks";
+	} else if (abbr == "strikeOuts") {
+		return abbr.toLowerCase();
+	} else if (abbr == "avg") {
+		return "battingAverage";
+	} else if (abbr == "obp") {
+		return "onBasePercentage";
+	} else if (abbr=="ops") {
+		return "onBasePlusSlugging";
+	} else if (abbr=="gidp") {
+		return "groundIntoDoublePlays";
+	} else if (abbr == "hitByPitch") {
+		return "hitByPitches";
+	} else if (abbr == "sacBunts" || abbr == "sacFlies") {
+		return abbr.replaceAll("sac","sacrifice");
+	} else if (abbr == "era") {
+		return "earnedRunAverage";
+	} else if (abbr == "whip") {
+		return "walksAndHitsPerInningPitched";
+	} else {
+		return abbr;
+	}
+}
+function allTimeRecord(abbr,hitOrPitch) {
+	if (allTimeLead.filter(e => e.leaderCategory == getAbbrev(abbr)).length == 0) {
+		return false;
+	}
+	return player.id == allTimeLead.filter(e => e.leaderCategory==(getAbbrev(abbr) || abbr) && e.statGroup == hitOrPitch)[0].leaders[0].person.id;
 }
