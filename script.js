@@ -40,7 +40,7 @@ atL.onload = function() {
 }
 atL2.onload = function() {
 	allTimeLead = allTimeLead.concat(atL2.response.leagueLeaders.filter(e => e.statGroup == "hitting" || e.statGroup == "pitching"));
-	if (isPitcher) {
+	if (isPitcher(player)) {
 		for (var i = 0; i < pitchCats.length; i++) {
 			if (allTimeRecord(pitchCats[i],"pitching")) {
 				document.getElementById(pitchCats[i]).style.backgroundColor = "gold";
