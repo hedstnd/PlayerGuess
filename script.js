@@ -612,12 +612,24 @@ function isHitLeader(year,cat) {
 	if (year == "career") {
 		return player.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "rankings")[0].splits[cat]
 	}
+	var retVal;
+	try {
+		retVal = hitRank.filter(e => e.season == year)[0].stat[cat];
+	} catch(err) {
+		return false;
+	}
 	return hitRank.filter(e => e.season == year)[0].stat[cat] == 1 || hitRank.filter(e => e.season == year)[0].stat[cat] == "1";
 }
 function getPitchStats(season) {
 	return pitchStats.filter(e => e.season == season);
 }
 function isPitchLeader(year,cat) {
+	var retVal;
+	try {
+		retVal = pitchRank.filter(e => e.season == year)[0].stat[cat];
+	} catch(err) {
+		return false;
+	}
 	return pitchRank.filter(e => e.season == year)[0].stat[cat] == 1 || pitchRank.filter(e => e.season == year)[0].stat[cat] == "1";
 }
 function getAbbrev(abbr) {
