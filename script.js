@@ -139,13 +139,14 @@ function getAwards(yr, tm=0) {
 			for (var i = 0; i < refAwr.length; i++) {
 				var share = awardJson.filter(e => e.lgID == refAwr[i].lgID && e.awardID == refAwr[i].awardID && e.yearID == refAwr[i].yearID);
 				console.log(share);
-				// var ind = share.indexOf(refAwr);
-				// while (share[ind].pointsWon == refAwr[i].pointsWon && ind >= 0) {
-					// ind--;
-				// }
+				var ind = share.indexOf(refAwr[i]);
+				console.log(ind);
+				while (ind >= 0 && share[ind].pointsWon == refAwr[i].pointsWon) {
+					ind--;
+				}
 				console.log(share.indexOf(refAwr[i]));
 				if (share.indexOf(refAwr[i]) > 0) {
-					aw.push(refAwr[i].awardID+"-"+(share.indexOf(refAwr[i])+1));
+					aw.push(refAwr[i].awardID+"-"+(ind/*share.indexOf(refAwr[i])*/+2));
 				} else {
 					aw.push("<b>"+refAwr[i].awardID+"-"+(share.indexOf(refAwr[i])+1)+"</b>");
 				}
