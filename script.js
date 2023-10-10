@@ -99,7 +99,11 @@ function setStats(person) {
 		 pitchRank = person.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "rankingsByYear")[0].splits;
 	} else {
 		hitStats = person.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "yearByYear")[0].splits;
-		fieldStats = person.stats.filter(e => e.group.displayName == "fielding" && e.type.displayName == "yearByYear")[0].splits;
+		try {
+			fieldStats = person.stats.filter(e => e.group.displayName == "fielding" && e.type.displayName == "yearByYear")[0].splits;
+		} catch(err) {
+			fieldStats = [];
+		}
 		hitRank = person.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "rankingsByYear")[0].splits;
 	}
 }
@@ -434,7 +438,11 @@ function getPos(yr,tm) {
 	if (yr != "career") {
 		ls = fieldStats.filter(e => parseInt(e.season) == parseInt(yr) && ((e.team && e.team.id == tm) || e.numTeams == tm));
 	} else {
-		ls = player.stats.filter(e => e.group.displayName == "fielding" && e.type.displayName == "career")[0].splits;
+		try {
+			ls = player.stats.filter(e => e.group.displayName == "fielding" && e.type.displayName == "career")[0].splits;
+		} catch(err) {
+			ls = [];
+		}
 	}
 	ls = ls.sort(function(a,b) {return b.stat.gamesPlayed-a.stat.gamesPlayed});
 	ret = "";

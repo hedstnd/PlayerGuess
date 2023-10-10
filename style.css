@@ -35,6 +35,7 @@ tr:last-child th:last-child,tr:last-child {
 table {
 	border-radius: 10px;
 	border: none;
+	white-space: nowrap;
 }
 th {
 	background-color: lightgrey;
