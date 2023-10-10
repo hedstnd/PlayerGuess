@@ -8,29 +8,32 @@ var allTimeLead;
 var pitchRank;
 const hitCats = ["yr","tm","gamesPlayed","plateAppearances","atBats","runs","hits","doubles","triples","homeRuns","rbi","stolenBases","caughtStealing","baseOnBalls","strikeOuts","avg","obp","ops","totalBases","groundIntoDoublePlay","hitByPitch","sacBunts","sacFlies","intentionalWalks","pos","awards"];
 const pitchCats = ["yr","tm","wins","losses","era","gamesPitched","gamesStarted","gamesFinished","completeGames","shutouts","saves","inningsPitched","hits","runs","earnedRuns","homeRuns","baseOnBalls","intentionalWalks","strikeOuts","hitBatsmen","balks","wildPitches","battersFaced","whip","strikeoutWalkRatio","awards"];
+var awardJson;
 var atr = new XMLHttpRequest();
 var pr = new XMLHttpRequest();
 var srch = new XMLHttpRequest();
 var atL = new XMLHttpRequest();
 var atL2 = new XMLHttpRequest();
-const awr = ["NLAS","ALAS", "NLMVP","ALMVP","NLHAA","ALHAA","NLGG","ALGG","NLSS","ALSS","NLCY","ALCY","WSCHAMP","NLROY","ALROY","ROY","MVP","WSMVP","ALAWARD","NLAWARD","ALCHALM","NLCHALM"];
+const awr = ["NLAS","ALAS","NLGG","ALGG","NLSS","ALSS","WSCHAMP","ROY","MVP","WSMVP"];
 const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158 ];
 
 
 
 window.onload = function() {
 	var que = window.location.search.substring(1);
-	if (que.length > 0) {
-		pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
-		pr.responseType = 'json';
-		pr.send();
-	} else {
-		tm = teams[Math.round(Math.random() * 29)];
-		atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+tm+"/roster?rosterType=allTime");
-		atr.responseType = 'json'
-		atr.send();
-	}
-	
+	var aJson = getData('./awards.json').then((val) => {
+		awardJson = val;
+		if (que.length > 0) {
+			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
+			pr.responseType = 'json';
+			pr.send();
+		} else {
+			tm = teams[Math.round(Math.random() * 29)];
+			atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+tm+"/roster?rosterType=allTime");
+			atr.responseType = 'json'
+			atr.send();
+		}
+	});
 }
 atL.onload = function() {
 	allTimeLead = atL.response.leagueLeaders.filter(e => e.statGroup == "pitching" || e.statGroup == "hitting");
@@ -61,7 +64,7 @@ atL2.onload = function() {
 }
 atr.onload = function() {
 	pId = atr.response.roster[Math.round(Math.random() * atr.response.roster.length) - 1].person.id;
-	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
+	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
 	pr.responseType = 'json';
 	pr.send();
 }
@@ -102,13 +105,52 @@ function setStats(person) {
 }
 function getAwards(yr, tm=0) {
 	var aw;
+	var refId;
+	try {
+		refId = player.xrefIds.filter(e => e.xrefType == "lahman")[0].xrefId;
+	} catch(err) {
+		refId = player.useLastName.toLowerCase().substring(0,5) + (player.useFirstName || player.useName).toLowerCase().substring(0,2)+"01";
+	}
+	console.log(refId);
 	if (tm > 0) {
 		aw = awards.filter(e => (e.date.substring(0,4)) == (yr) && e.team.id == tm).map(e => e.id).filter(e => awr.includes(e));
+		var refAwr = awardJson.filter(e => e.yearID == yr && e.playerID == refId);
+		console.log(refAwr);
+		if (refAwr.length > 0) {
+			for (var i = 0; i < refAwr.length; i++) {
+				var share = awardJson.filter(e => e.awardID == refAwr[i].awardID && e.yearID == refAwr[i].yearID);
+				console.log(share);
+				var ind = share.indexOf(refAwr);
+				while (share[i].pointsWon == refAwr[i].pointsWon) {
+					ind--;
+				}
+				aw+=", "+refAwr[i].awardID+"-"+(ind+1);
+			}
+		}
 	} else {
 		aw = awards.filter(e => (e.date.substring(0,4)) == (yr)).map(e => e.id).filter(e => awr.includes(e));
+		var refAwr = awardJson.filter(e => e.yearID == yr && e.playerID == refId);
+		console.log(refAwr);
+		if (refAwr.length > 0) {
+			for (var i = 0; i < refAwr.length; i++) {
+				var share = awardJson.filter(e => e.lgID == refAwr[i].lgID && e.awardID == refAwr[i].awardID && e.yearID == refAwr[i].yearID);
+				console.log(share);
+				// var ind = share.indexOf(refAwr);
+				// while (share[ind].pointsWon == refAwr[i].pointsWon && ind >= 0) {
+					// ind--;
+				// }
+				console.log(share.indexOf(refAwr[i]));
+				if (share.indexOf(refAwr[i]) > 0) {
+					aw.push(refAwr[i].awardID+"-"+(share.indexOf(refAwr[i])+1));
+				} else {
+					aw.push("<b>"+refAwr[i].awardID+"-"+(share.indexOf(refAwr[i])+1)+"</b>");
+				}
+			}
+		}
 	}
 //	aw = aw.map(e => e.id.substring(2));
-	return aw.join(",").replaceAll("CHALM","MVP").replaceAll("AWARD","MVP");
+	console.log(aw);
+	return aw.join(",").replaceAll("CHALM","MVP").replaceAll("AWARD","MVP").replaceAll("AL","").replaceAll("NL","");
 }
 
 function isPitcher(person) {
@@ -194,7 +236,7 @@ function setTable(pl) {
 			if (hitStats[i].numTeams || oneTeam) {
 				aw = getAwards(hitStats[i].season);
 			}
-			statPush[25].innerText = aw;//.join(",");
+			statPush[25].innerHTML = aw;//.join(",");
 			// for (var i = 0; i < aw.length; i++) {
 				// statPush.innerText = aw[i];
 				// if (i != aw.length - 1) {
@@ -318,7 +360,7 @@ function setTablePitch(pl) {
 			} //else {
 				// aw = getAwards(pitchStats[i].season,pitchStats[i].team.id);
 			// }
-			statPush[25].innerText = aw;//.join(",");
+			statPush[25].innerHTML = aw;//.join(",");
 			// for (var i = 0; i < aw.length; i++) {
 				// statPush.innerText = aw[i];
 				// if (i != aw.length - 1) {
@@ -612,4 +654,10 @@ function allTimeRecord(abbr,hitOrPitch) {
 		return false;
 	}
 	return player.id == allTimeLead.filter(e => e.leaderCategory==(getAbbrev(abbr) || abbr) && e.statGroup == hitOrPitch)[0].leaders[0].person.id;
+}
+async function getData(url) {
+	var ret;
+	var jso = await fetch(url);
+	ret = await jso.json();
+	return ret;
 }
