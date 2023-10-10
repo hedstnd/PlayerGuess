@@ -109,7 +109,7 @@ function getAwards(yr, tm=0) {
 	try {
 		refId = player.xrefIds.filter(e => e.xrefType == "lahman")[0].xrefId;
 	} catch(err) {
-		refId = player.useLastName.toLowerCase().substring(0,5) + (player.useFirstName || player.useName).toLowerCase().substring(0,2)+"01";
+		refId = player.useLastName.toLowerCase().substring(0,5) + (player.useFirstName || player.useName).toLowerCase().substring(0,2)+player.xrefIds.filter(e => e.xrefType == "retrosheet")[0].xrefId.substring(6);
 	}
 	console.log(refId);
 	if (tm > 0) {
@@ -595,7 +595,12 @@ function getTeamAbbr(season) {
 		} else if (season.team.id == 148) {
 			return "LOU";
 		} else {
-			return season.team.name;
+			var lg = season.league.name.split(" ");
+			var lgA = "";
+			for (var i = 0; i < lg.length; i++) {
+				lgA+= lg[i].charAt(0);
+			}
+			return season.team.name + " (" +lgA+")";
 		}
 	}
 }
