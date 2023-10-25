@@ -113,7 +113,12 @@ function getAwards(yr, tm=0) {
 	try {
 		refId = player.xrefIds.filter(e => e.xrefType == "lahman")[0].xrefId;
 	} catch(err) {
-		refId = player.useLastName.toLowerCase().substring(0,5) + (player.useFirstName || player.useName).toLowerCase().substring(0,2)+player.xrefIds.filter(e => e.xrefType == "retrosheet")[0].xrefId.substring(6);
+		refId = player.useLastName.toLowerCase().substring(0,5) + (player.useFirstName || player.useName).toLowerCase().substring(0,2);
+		try {
+			refId+=player.xrefIds.filter(e => e.xrefType == "retrosheet")[0].xrefId.substring(6);
+		} catch (err2) {
+			refId+= "01";
+		}
 	}
 	console.log(refId);
 	if (tm > 0) {
