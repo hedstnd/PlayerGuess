@@ -51670,7 +51670,7 @@
     "awardID": "RoY",
     "yearID": 2023,
     "lgID": "NL",
-    "playerID": "carroco02",
+    "playerID": 682998,
     "pointsWon": 150
   },
   {
@@ -51684,7 +51684,7 @@
     "awardID": "RoY",
     "yearID": 2023,
     "lgID": "NL",
-    "playerID": "outmaja01",
+    "playerID": 681546,
     "pointsWon": 20
   },
   {
@@ -51726,14 +51726,14 @@
     "awardID": "RoY",
     "yearID": 2023,
     "lgID": "NL",
-    "playerID": "perezeu02",
+    "playerID": 691587,
     "pointsWon": 1
   },
   {
     "awardID": "RoY",
     "yearID": 2023,
     "lgID": "AL",
-    "playerID": "hendegu01",
+    "playerID": 683002,
     "pointsWon": 150
   },
   {
@@ -51761,14 +51761,14 @@
     "awardID": "RoY",
     "yearID": 2023,
     "lgID": "AL",
-    "playerID": "diazya01",
+    "playerID": "diazya02",
     "pointsWon": 6
   },
   {
     "awardID": "RoY",
     "yearID": 2023,
     "lgID": "AL",
-    "playerID": "yoshima02",
+    "playerID": 807799,
     "pointsWon": 3
   },
   {
@@ -51783,6 +51783,349 @@
     "yearID": 2023,
     "lgID": "AL",
     "playerID": "volpean01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "ohtansh01",
+    "pointsWon": 420
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "seageco01",
+    "pointsWon": 264
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "semiema01",
+    "pointsWon": 216
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "rodriju01",
+    "pointsWon": 197
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "tuckeky01",
+    "pointsWon": 178
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "diazya01",
+    "pointsWon": 137
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "wittbo02",
+    "pointsWon": 83
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": 683002,
+    "pointsWon": 77
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "rutscad01",
+    "pointsWon": 50
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "ramirjo01",
+    "pointsWon": 40
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "colege01",
+    "pointsWon": 30
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "roberlu01",
+    "pointsWon": 21
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "alvaryo01",
+    "pointsWon": 16
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "garciad02",
+    "pointsWon": 14
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "judgeaa01",
+    "pointsWon": 7
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "bichebo01",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "crawfjp01",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "raleica01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "deverra01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "paredis01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "grayso01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "bregmal01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "AL",
+    "playerID": "naylojo01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "acunaro01",
+    "pointsWon": 420
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "bettsmo01",
+    "pointsWon": 270
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "freemfr01",
+    "pointsWon": 227
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "olsonma02",
+    "pointsWon": 223
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": 682998,
+    "pointsWon": 165
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "sotoju01",
+    "pointsWon": 106
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "rileyau01",
+    "pointsWon": 68
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "arraelu01",
+    "pointsWon": 67
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "lindofr01",
+    "pointsWon": 52
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "bellico01",
+    "pointsWon": 49
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "contrwi02",
+    "pointsWon": 39
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "harpebr03",
+    "pointsWon": 36
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "snellbl01",
+    "pointsWon": 16
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "tatisfe02",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "kimha01",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "albieoz01",
+    "pointsWon": 4
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "webblo01",
+    "pointsWon": 3
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "alonspe01",
+    "pointsWon": 3
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "ozunama01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "willide03",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "swansda01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "schwaka01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "galleza01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "walkech02",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "friedtj01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2023,
+    "lgID": "NL",
+    "playerID": "casteni01",
     "pointsWon": 1
   }
 ]

@@ -5,6 +5,7 @@ var pitchStats;
 var fieldStats;
 var hitRank;
 var allTimeLead;
+var singleSeasonLead;
 var pitchRank;
 const hitCats = ["yr","tm","gamesPlayed","plateAppearances","atBats","runs","hits","doubles","triples","homeRuns","rbi","stolenBases","caughtStealing","baseOnBalls","strikeOuts","avg","obp","ops","totalBases","groundIntoDoublePlay","hitByPitch","sacBunts","sacFlies","intentionalWalks","pos","awards"];
 const pitchCats = ["yr","tm","wins","losses","era","gamesPitched","gamesStarted","gamesFinished","completeGames","shutouts","saves","inningsPitched","hits","runs","earnedRuns","homeRuns","baseOnBalls","intentionalWalks","strikeOuts","hitBatsmen","balks","wildPitches","battersFaced","whip","strikeoutWalkRatio","awards"];
@@ -14,6 +15,8 @@ var pr = new XMLHttpRequest();
 var srch = new XMLHttpRequest();
 var atL = new XMLHttpRequest();
 var atL2 = new XMLHttpRequest();
+// var ssRec = new XMLHttpRequest();
+// var ssRec2 = new XMLHttpRequest();
 const awr = ["NLAS","ALAS","NLGG","ALGG","NLSS","ALSS","WSCHAMP","ROY","MVP","WSMVP"];
 const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158 ];
 
@@ -21,6 +24,13 @@ const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,  
 
 window.onload = function() {
 	var que = window.location.search.substring(1);
+	// ssRec.open("GET","https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=wins,losses,era,completeGames,shutouts,saves,inningsPitched,earnedRuns,hitBatsmen,balks,wildPitches,battersFaced,whip,strikeoutWalkRatio&statType=statsSingleSeason&limit=1");
+	// ssRec.responseType = 'json';
+	// ssRec.send();
+	var ssRec = getData("https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=wins,losses,era,completeGames,shutouts,saves,inningsPitched,earnedRuns,hitBatsmen,balks,wildPitches,battersFaced,whip,strikeoutWalkRatio&statType=statsSingleSeason&limit=1").then((ssr) => {
+		var ssRec2 = getData("https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=plateAppearances,atBats,runs,hits,doubles,triples,homeRuns,rbi,stolenBases,caughtStealing,baseOnBalls,strikeOuts,avg,obp,ops,totalBases,gidp,hitByPitch,sacBunts,sacFlies,intentionalWalks&statType=statsSingleSeason&limit=1").then((ssr2) => {
+			singleSeasonLead = ssr.leagueLeaders.filter(e => e.statGroup == "pitching" || e.statGroup == "hitting").concat(ssr2.leagueLeaders.filter(f => f.statGroup == "pitching" || f.statGroup == "hitting"));
+	
 	var aJson = getData('./awards.json').then((val) => {
 		awardJson = val;
 		if (que.length > 0) {
@@ -33,8 +43,18 @@ window.onload = function() {
 			atr.responseType = 'json'
 			atr.send();
 		}
-	});
+	});});});
 }
+// ssRec.onload = function() {
+	// singleSeasonLead = ssRec.response.leagueLeaders.filter(e => e.statGroup == "pitching" || e.statGroup =="hitting");
+	// ssRec2.open("GET","https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=plateAppearances,atBats,runs,hits,doubles,triples,homeRuns,rbi,stolenBases,caughtStealing,baseOnBalls,strikeOuts,avg,obp,ops,totalBases,gidp,hitByPitch,sacBunts,sacFlies,intentionalWalks&statType=statsSingleSeason&limit=1");
+	// ssRec2.responseType = 'json';
+	// ssRec2.send();
+// }
+// ssRec2.onload = function() {
+	// singleSeasonLead = singleSeasonLead.concat(ssRec2.response.leagueLeaders.filter(e => e.statGroup == "hitting" || e.statGroup == "pitching"));
+	
+// }
 atL.onload = function() {
 	allTimeLead = atL.response.leagueLeaders.filter(e => e.statGroup == "pitching" || e.statGroup == "hitting");
 	atL2.open("GET","https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=plateAppearances,atBats,runs,hits,doubles,triples,homeRuns,rbi,stolenBases,caughtStealing,baseOnBalls,strikeOuts,avg,obp,ops,totalBases,gidp,hitByPitch,sacBunts,sacFlies,intentionalWalks&statType=career&limit=1");
@@ -113,7 +133,7 @@ function getAwards(yr, tm=0) {
 	try {
 		refId = player.xrefIds.filter(e => e.xrefType == "lahman")[0].xrefId;
 	} catch(err) {
-		refId = player.useLastName.toLowerCase().substring(0,5) + (player.useFirstName || player.useName).toLowerCase().substring(0,2);
+		refId = player.lastName.replaceAll(" ","").toLowerCase().substring(0,5) + (player.useFirstName || player.useName).replaceAll(" ","").replaceAll(".","").toLowerCase().substring(0,2);
 		try {
 			refId+=player.xrefIds.filter(e => e.xrefType == "retrosheet")[0].xrefId.substring(6);
 		} catch (err2) {
@@ -123,7 +143,7 @@ function getAwards(yr, tm=0) {
 	console.log(refId);
 	if (tm > 0) {
 		aw = awards.filter(e => (e.date.substring(0,4)) == (yr) && e.team.id == tm).map(e => e.id).filter(e => awr.includes(e));
-		var refAwr = awardJson.filter(e => e.yearID == yr && e.playerID == refId);
+		var refAwr = awardJson.filter(e => e.yearID == yr && (e.playerID == player.id || e.playerID == refId));
 		console.log(refAwr);
 		if (refAwr.length > 0) {
 			for (var i = 0; i < refAwr.length; i++) {
@@ -265,6 +285,13 @@ function setTable(pl) {
 				}
 			}
 		}
+		for (var j = 0; j < 24; j++) {
+			if (hitStats[i].stat[hitCats[j]] == singleSeasonRecord(hitCats[j],"hitting")) {
+				console.log("record" + hitCats[j] + " " + hitStats[i].season);
+				statPush[j].style.backgroundColor = "gold";
+				statPush[j].style.fontWeight = "bold";
+			}
+		}
 		if (!oneTeam && !hitStats[i].numTeams) {
 			// console.log('two team year');
 			yr.style.color = 'gray';
@@ -387,6 +414,13 @@ function setTablePitch(pl) {
 				if (isPitchLeader(pitchStats[i].season,pitchCats[j])) {
 					statPush[j].style.fontWeight = 'bold';
 				}
+			}
+		}
+		for (var j = 2; j < 24; j++) {
+			if (pitchStats[i].stat[pitchCats[j]] == singleSeasonRecord(pitchCats[j],"pitching")) {
+				console.log("record" + pitchCats[j] + " " + pitchStats[i].season);
+				statPush[j].style.backgroundColor = "gold";
+				statPush[j].style.fontWeight = "bold";
 			}
 		}
 		if (!oneTeam && !pitchStats[i].numTeams) {
@@ -685,6 +719,13 @@ function allTimeRecord(abbr,hitOrPitch) {
 		return false;
 	}
 	return player.id == allTimeLead.filter(e => e.leaderCategory==(getAbbrev(abbr) || abbr) && e.statGroup == hitOrPitch)[0].leaders[0].person.id;
+}
+function singleSeasonRecord(abbr,hitOrPitch) {
+	try {
+		return singleSeasonLead.filter(e => e.leaderCategory == (getAbbrev(abbr) || abbr) && e.statGroup == hitOrPitch)[0].leaders[0].value;
+	} catch {
+		return -1;
+	}
 }
 async function getData(url) {
 	var ret;
