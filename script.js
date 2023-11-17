@@ -28,10 +28,13 @@ window.onload = function() {
 	// ssRec.responseType = 'json';
 	// ssRec.send();
 	var ssRec = getData("https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=wins,losses,era,completeGames,shutouts,saves,inningsPitched,earnedRuns,hitBatsmen,balks,wildPitches,battersFaced,whip,strikeoutWalkRatio&statType=statsSingleSeason&limit=1").then((ssr) => {
+		document.getElementById("prog").value=25;
 		var ssRec2 = getData("https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=plateAppearances,atBats,runs,hits,doubles,triples,homeRuns,rbi,stolenBases,caughtStealing,baseOnBalls,strikeOuts,avg,obp,ops,totalBases,gidp,hitByPitch,sacBunts,sacFlies,intentionalWalks&statType=statsSingleSeason&limit=1").then((ssr2) => {
+			document.getElementById("prog").value= 50;
 			singleSeasonLead = ssr.leagueLeaders.filter(e => e.statGroup == "pitching" || e.statGroup == "hitting").concat(ssr2.leagueLeaders.filter(f => f.statGroup == "pitching" || f.statGroup == "hitting"));
 	
 	var aJson = getData('./awards.json').then((val) => {
+		document.getElementById("prog").value = 75;
 		awardJson = val;
 		if (que.length > 0) {
 			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
@@ -83,12 +86,14 @@ atL2.onload = function() {
 	}
 }
 atr.onload = function() {
+	document.getElementById("prog").value = 87.5;
 	pId = atr.response.roster[Math.round(Math.random() * atr.response.roster.length) - 1].person.id;
 	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
 	pr.responseType = 'json';
 	pr.send();
 }
 pr.onload = function() {
+	document.getElementById("prog").value = 100;
 	player = pr.response.people[0];
 	if (player.awards) {
 		awards = player.awards;
@@ -188,6 +193,8 @@ function isPitcher(person) {
 }
 
 function setTable(pl) {
+	document.getElementById("prog").style.display = "none";
+	document.getElementById("load").style.display = "none";
 	if (isPitcher(pl)) {
 		return setTablePitch(pl);
 	}
