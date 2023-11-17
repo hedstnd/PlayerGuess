@@ -158,7 +158,7 @@ function getAwards(yr, tm=0) {
 		}
 	} else {
 		aw = awards.filter(e => (e.date.substring(0,4)) == (yr)).map(e => e.id).filter(e => awr.includes(e));
-		var refAwr = awardJson.filter(e => e.yearID == yr && e.playerID == refId);
+		var refAwr = awardJson.filter(e => e.yearID == yr && (e.playerID == refId || e.playerID == player.id));
 		console.log(refAwr);
 		if (refAwr.length > 0) {
 			for (var i = 0; i < refAwr.length; i++) {
