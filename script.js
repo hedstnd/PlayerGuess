@@ -530,147 +530,150 @@ function playerSearch() {
 function getTeamAbbr(season) {
 	if (season.numTeams) {
 		return "TOT";
-	} else if (season.team.name == "Milwaukee Brewers" && parseInt(season.season) < 1954) {
-		return "MLA";
-	} else if (season.team.name == "Washington Senators" && parseInt(season.season) > 1960) {
-		return "WSA";
-	}
-	else {
-		if (season.team.id == 133) {
-			if (parseInt(season.season) < 1955) {
-				return "PHA";
-			} else if (parseInt(season.season) < 1968) {
-				return "KCA";
-			} else {
-				return "OAK";
-			}
-		} else if (season.team.id == 134) {
-			return "PIT";
-		} else if (season.team.id == 135) {
-			return "SD";
-		} else if (season.team.id == 136) {
-			return "SEA";
-		} else if (season.team.id == 137) {
-			if (parseInt(season.season) < 1958) {
-				return "NYG";
-			} else {
-				return "SF";
-			}
-		} else if (season.team.id == 138) {
-			return "STL";
-		} else if (season.team.id == 139) {
-			if (parseInt(season.season) < 2008) {
-				return "TBD";
-			} else {
-				return "TB";
-			}
-		} else if (season.team.id == 140) {
-			return "TEX";
-		} else if (season.team.id == 141) {
-			return "TOR";
-		} else if (season.team.id == 142) {
-			if (parseInt(season.season) < 1961) {
-				return "WAS";
-			} else {
-				return "MIN";
-			}
-		} else if (season.team.id == 143) {
-			return "PHI";
-		} else if (season.team.id == 144) {
-			if (parseInt(season.season) < 1953) {
-				return "BSN";
-			} else if (parseInt(season.season) < 1966) {
-				return "MLN";
-			} else {
-				return "ATL";
-			}
-		} else if (season.team.id == 145) {
-			return "CHW";
-		} else if (season.team.id == 146) {
-			if (parseInt(season.season) < 2012) {
-				return "FLA";
-			} else {
-				return "MIA";
-			}
-		} else if (season.team.id == 147) {
-			return "NYY";
-		} else if (season.team.id == 158) {
-			if (parseInt(season.season) < 1970) {
-				return "SEP";
-			} else {
-				return "MIL";
-			}
-		} else if (season.team.id == 108) {
-			if (parseInt(season.season) < 1965 || parseInt(season.season) > 2004) {
-				return "LAA";
-			} else if (parseInt(season.season) < 1997) {
-				return "CAL";
-			} else if (parseInt(season.season) < 2005) {
-				return "ANA";
-			}
-		} else if (season.team.id == 109) {
-			return "ARI";
-		} else if (season.team.id == 110) {
-			if (parseInt(season.season) < 1955) {
-				return "SLB";
-			} else {
-				return "BAL";
-			}
-		} else if (season.team.id == 111) {
-			return "BOS";
-		} else if (season.team.id == 112) {
-			return "CHC";
-		} else if (season.team.id == 113) {
-			return "CIN";
-		} else if (season.team.id == 114) {
-			return "CLE";
-		} else if (season.team.id == 115) {
-			return "COL";
-		} else if (season.team.id == 116) {
-			return "DET";
-		} else if (season.team.id == 117) {
-			return "HOU";
-		} else if (season.team.id == 118) {
-			return "KC";
-		} else if (season.team.id == 119) {
-			if (parseInt(season.season) < 1958) {
-				return "BKN";
-			} else {
-				return "LAD";
-			}
-		} else if (season.team.id == 120) {
-			if (parseInt(season.season) < 2005) {
-				return "MON";
-			} else {
-				return "WSN";
-			}
-		} else if (season.team.id == 121) {
-			return "NYM";
-		} else if (season.team.id == 209 || season.team.id == 208) {
-			return "CLV";
-		} else if (season.team.id == 224) {
-			return "PRO";
-		} else if (season.team.id == 163) {
-			return "BLN";
-		} else if (season.team.id == 213) {
-			return "DTN";
-		} else if (season.team.id == 148) {
-			return "LOU";
-		} else {
-			var lg = season.league.name.replaceAll("(I)","1").replaceAll("(II)","2").split(" ");
-			var lgA = "";
-			for (var i = 0; i < lg.length; i++) {
-				lgA+= lg[i].charAt(0);
-			}
-			var sName = season.team.name;
+	// } else if (season.team.name == "Milwaukee Brewers" && parseInt(season.season) < 1954) {
+		// return "MLA";
+	// } else if (season.team.name == "Washington Senators" && parseInt(season.season) > 1960) {
+		// return "WSA";
+	// }
+	// else {
+		// if (season.team.id == 133) {
+			// if (parseInt(season.season) < 1955) {
+				// return "PHA";
+			// } else if (parseInt(season.season) < 1968) {
+				// return "KCA";
+			// } else {
+				// return "OAK";
+			// }
+		// } else if (season.team.id == 134) {
+			// return "PIT";
+		// } else if (season.team.id == 135) {
+			// return "SD";
+		// } else if (season.team.id == 136) {
+			// return "SEA";
+		// } else if (season.team.id == 137) {
+			// if (parseInt(season.season) < 1958) {
+				// return "NYG";
+			// } else {
+				// return "SF";
+			// }
+		// } else if (season.team.id == 138) {
+			// return "STL";
+		// } else if (season.team.id == 139) {
+			// if (parseInt(season.season) < 2008) {
+				// return "TBD";
+			// } else {
+				// return "TB";
+			// }
+		// } else if (season.team.id == 140) {
+			// return "TEX";
+		// } else if (season.team.id == 141) {
+			// return "TOR";
+		// } else if (season.team.id == 142) {
+			// if (parseInt(season.season) < 1961) {
+				// return "WAS";
+			// } else {
+				// return "MIN";
+			// }
+		// } else if (season.team.id == 143) {
+			// return "PHI";
+		// } else if (season.team.id == 144) {
+			// if (parseInt(season.season) < 1953) {
+				// return "BSN";
+			// } else if (parseInt(season.season) < 1966) {
+				// return "MLN";
+			// } else {
+				// return "ATL";
+			// }
+		// } else if (season.team.id == 145) {
+			// return "CHW";
+		// } else if (season.team.id == 146) {
+			// if (parseInt(season.season) < 2012) {
+				// return "FLA";
+			// } else {
+				// return "MIA";
+			// }
+		// } else if (season.team.id == 147) {
+			// return "NYY";
+		// } else if (season.team.id == 158) {
+			// if (parseInt(season.season) < 1970) {
+				// return "SEP";
+			// } else {
+				// return "MIL";
+			// }
+		// } else if (season.team.id == 108) {
+			// if (parseInt(season.season) < 1965 || parseInt(season.season) > 2004) {
+				// return "LAA";
+			// } else if (parseInt(season.season) < 1997) {
+				// return "CAL";
+			// } else if (parseInt(season.season) < 2005) {
+				// return "ANA";
+			// }
+		// } else if (season.team.id == 109) {
+			// return "ARI";
+		// } else if (season.team.id == 110) {
+			// if (parseInt(season.season) < 1955) {
+				// return "SLB";
+			// } else {
+				// return "BAL";
+			// }
+		// } else if (season.team.id == 111) {
+			// return "BOS";
+		// } else if (season.team.id == 112) {
+			// return "CHC";
+		// } else if (season.team.id == 113) {
+			// return "CIN";
+		// } else if (season.team.id == 114) {
+			// return "CLE";
+		// } else if (season.team.id == 115) {
+			// return "COL";
+		// } else if (season.team.id == 116) {
+			// return "DET";
+		// } else if (season.team.id == 117) {
+			// return "HOU";
+		// } else if (season.team.id == 118) {
+			// return "KC";
+		// } else if (season.team.id == 119) {
+			// if (parseInt(season.season) < 1958) {
+				// return "BKN";
+			// } else {
+				// return "LAD";
+			// }
+		// } else if (season.team.id == 120) {
+			// if (parseInt(season.season) < 2005) {
+				// return "MON";
+			// } else {
+				// return "WSN";
+			// }
+		// } else if (season.team.id == 121) {
+			// return "NYM";
+		// } else if (season.team.id == 209 || season.team.id == 208) {
+			// return "CLV";
+		// } else if (season.team.id == 224) {
+			// return "PRO";
+		// } else if (season.team.id == 163) {
+			// return "BLN";
+		// } else if (season.team.id == 213) {
+			// return "DTN";
+		// } else if (season.team.id == 148) {
+			// return "LOU";
+		 } else {
+			// var lg = season.league.name.replaceAll("(I)","1").replaceAll("(II)","2").split(" ");
+			// var lgA = "";
+			// for (var i = 0; i < lg.length; i++) {
+				// lgA+= lg[i].charAt(0);
+			// }
+			// var sName = season.team.name;
 			// var grab;
 			// await getData("https://statsapi.mlb.com" + season.team.link + "?season=" + season.season).then((tmInfo) => {
 				// console.log(tmInfo);
 				// sName = tmInfo.teams[0].abbreviation;
 			// });
-			return season.team.abbreviation + " (" +lgA+")";
+			if (season.team.active) {
+				return season.team.abbreviation;
+			}
+			return season.team.abbreviation + " (" +season.team.league.abbreviation+")";
 		}
-	}
+	// }
 }
 function giveUp() {
 	document.getElementById("corr").innerText = player.fullName;
