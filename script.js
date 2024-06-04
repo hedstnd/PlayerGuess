@@ -18,7 +18,7 @@ var atL2 = new XMLHttpRequest();
 // var ssRec = new XMLHttpRequest();
 // var ssRec2 = new XMLHttpRequest();
 const awr = ["NLAS","ALAS","NLGG","ALGG","NLSS","ALSS","WSCHAMP","ROY","MVP","WSMVP"];
-const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158 ];
+const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158, 1536, 1541, 1490, 1491, 1492, 1493, 1495, 1508, 1512, 1513, 1514, 1515, 1517, 1520, 1523, 1524, 1529, 1530, 1534];
 
 
 
@@ -37,11 +37,11 @@ window.onload = function() {
 		document.getElementById("prog").value = 75;
 		awardJson = val;
 		if (que.length > 0) {
-			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
+			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear](team(league)))");
 			pr.responseType = 'json';
 			pr.send();
 		} else {
-			tm = teams[Math.round(Math.random() * 29)];
+			tm = teams[Math.round(Math.random() * (teams.length - 1))];
 			atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+tm+"/roster?rosterType=allTime");
 			atr.responseType = 'json'
 			atr.send();
@@ -88,7 +88,7 @@ atL2.onload = function() {
 atr.onload = function() {
 	document.getElementById("prog").value = 87.5;
 	pId = atr.response.roster[Math.round(Math.random() * atr.response.roster.length) - 1].person.id;
-	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear])");
+	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=currentTeam,team,stats(group=[hitting,pitching,fielding],type=[yearByYear,careerRegularSeason,rankings,rankingsByYear](team(league)),leagueListId=mlb_hist),xrefId,awards&site=en");
 	pr.responseType = 'json';
 	pr.send();
 }
@@ -192,7 +192,7 @@ function isPitcher(person) {
 	return person.primaryPosition.code === "1";
 }
 
-function setTable(pl) {
+async function setTable(pl) {
 	document.getElementById("prog").style.display = "none";
 	document.getElementById("load").style.display = "none";
 	if (isPitcher(pl)) {
@@ -494,7 +494,14 @@ function getPos(yr,tm) {
 	ls = ls.sort(function(a,b) {return b.stat.gamesPlayed-a.stat.gamesPlayed});
 	ret = "";
 	for (var i = 0; i < ls.length; i++) {
-		if (ls[i].position.code == "10") {
+		console.log(ls);
+		if (ls[i].stat.gamesPlayed < 10) {
+			console.log("l10");
+			if (i == 0 || ls[i-1].stat.gamesPlayed >= 10) {
+				ret+= "/";
+			}
+		}
+		if (ls[i] && ls[i].position.code == "10") {
 			ret+= "D";
 		} else {
 			ret+= ls[i].position.code;
@@ -650,12 +657,18 @@ function getTeamAbbr(season) {
 		} else if (season.team.id == 148) {
 			return "LOU";
 		} else {
-			var lg = season.league.name.split(" ");
+			var lg = season.league.name.replaceAll("(I)","1").replaceAll("(II)","2").split(" ");
 			var lgA = "";
 			for (var i = 0; i < lg.length; i++) {
 				lgA+= lg[i].charAt(0);
 			}
-			return season.team.name + " (" +lgA+")";
+			var sName = season.team.name;
+			// var grab;
+			// await getData("https://statsapi.mlb.com" + season.team.link + "?season=" + season.season).then((tmInfo) => {
+				// console.log(tmInfo);
+				// sName = tmInfo.teams[0].abbreviation;
+			// });
+			return season.team.abbreviation + " (" +lgA+")";
 		}
 	}
 }
