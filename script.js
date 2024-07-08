@@ -113,6 +113,7 @@ pr.onload = function() {
 srch.onload = function() {
 	console.log(srch.response);
 	document.getElementById("autocom").innerHTML = "";
+	document.getElementById("comp").className = "";
 	for (var i = 0; i < srch.response.people.length; i++) {
 		document.getElementById("autocom").innerHTML+= "<li id='i"+srch.response.people[i].id+"' onclick='gPlay("+srch.response.people[i].id+")'>" + srch.response.people[i].fullName + " (b. " + srch.response.people[i].birthDate.substring(0,4) + ")</li>";
 	}
@@ -563,9 +564,13 @@ function posMultiTm(year) {
 
 function playerSearch() {
 	if (document.getElementById("guess").value != "") {
+		document.getElementById("comp").className = "loader";
 		srch.open("GET","https://statsapi.mlb.com/api/v1/people/search?names=" + document.getElementById("guess").value + "&sportId=22&hydrate=awards,stats(group=[hitting,pitching,fielding],type=[career,yearByYear])");
 		srch.responseType = "json";
 		srch.send();
+	} else {
+		document.getElementById("comp").className = "";
+		document.getElementById("autocom").innerHTML = "";
 	}
 }
 function getTeamAbbr(season) {
