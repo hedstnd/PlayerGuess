@@ -502,7 +502,11 @@ function incorrect(id) {
 function getPos(yr,tm) {
 	var ls = [];
 	if (yr != "career") {
-		ls = fieldStats.filter(e => parseInt(e.season) == parseInt(yr) && ((e.team && e.team.id == tm) || e.numTeams == tm));
+		if (tm < 100) {
+			ls = posMultiTm(yr)
+		} else {
+			ls = fieldStats.filter(e => parseInt(e.season) == parseInt(yr) && ((e.team && e.team.id == tm) || e.numTeams == tm));
+		}
 	} else {
 		try {
 			ls = player.stats.filter(e => e.group.displayName == "fielding" && e.type.displayName == "career")[0].splits;
@@ -527,6 +531,24 @@ function getPos(yr,tm) {
 		}
 	}
 	return ret;
+}
+function posMultiTm(year) {
+	var ls = [];
+	for (var i = 0; i < 10; i++) {
+		ls[i] = new Object();
+		ls[i].stat = new Object();
+		ls[i].position = new Object();
+	}
+	var oneTmNums = fieldStats.filter(e => parseInt(e.season) == parseInt(year) && !e.numTeams);
+	for (var i = 0; i < 10; i++) {
+		var gp = 0;
+		var j = i+1;
+		var yrStat = oneTmNums.filter(e => e.position.code == j);
+		yrStat.forEach(e => gp+= e.stat.gamesPlayed);
+		ls[i].position.code = j;
+		ls[i].stat.gamesPlayed = gp;
+	}
+	return ls.filter(e => e.stat.gamesPlayed > 0);
 }
 
 	function t() {
