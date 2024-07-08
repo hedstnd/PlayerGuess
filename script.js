@@ -37,7 +37,7 @@ window.onload = function() {
 		document.getElementById("prog").value = 75;
 		awardJson = val;
 		if (que.length > 0) {
-			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear](team(league)))");
+			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear,sabermetrics](team(league)))");
 			pr.responseType = 'json';
 			pr.send();
 		} else {
@@ -209,6 +209,16 @@ async function setTable(pl) {
 			// console.log(j);
 			statPush.push(document.createElement("td"));
 		}
+		console.log(hitStats[i].season);
+		if (i > 0 && parseInt(hitStats[i-1].season) < parseInt(hitStats[i].season)-1) {
+			console.log("THIS " + hitStats[i-1].season + " " + hitStats[i].season);
+			var emptyRow = document.createElement("tr");
+			var rowData = document.createElement("td");
+			rowData.className = "dnp";
+			rowData.setAttribute("colspan","26")
+			emptyRow.appendChild(rowData);
+			document.getElementById("tg").appendChild(emptyRow);
+		}
 		statPush[0].innerText = hitStats[i].season;
 		yr.appendChild(statPush[0]);
 		// if (hitStats[i].numTeams) {
@@ -341,6 +351,15 @@ function setTablePitch(pl) {
 		for (var j = 0; j < 26; j++) {
 			// console.log(j);
 			statPush.push(document.createElement("td"));
+		}
+		if (i > 0 && parseInt(pitchStats[i-1].season) < parseInt(pitchStats[i].season)-1) {
+			console.log("THIS " + pitchStats[i-1].season + " " + pitchStats[i].season);
+			var emptyRow = document.createElement("tr");
+			var rowData = document.createElement("td");
+			rowData.className = "dnp";
+			rowData.setAttribute("colspan","26")
+			emptyRow.appendChild(rowData);
+			document.getElementById("tg").appendChild(emptyRow);
 		}
 		statPush[0].innerText = pitchStats[i].season;
 		yr.appendChild(statPush[0]);

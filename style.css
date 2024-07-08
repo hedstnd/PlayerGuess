@@ -48,3 +48,7 @@ tr:hover {
 .record {
 	background-color: yellow;
 }
+.dnp {
+	height: 0.75rem;
+	background-color: gainsboro;
+}
