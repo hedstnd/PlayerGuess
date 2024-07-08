@@ -87,7 +87,7 @@ atL2.onload = function() {
 }
 atr.onload = function() {
 	document.getElementById("prog").value = 87.5;
-	pId = atr.response.roster[Math.round(Math.random() * atr.response.roster.length) - 1].person.id;
+	pId = atr.response.roster[Math.max(0,Math.round(Math.random() * atr.response.roster.length) - 1)].person.id;
 	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=currentTeam,team,stats(group=[hitting,pitching,fielding],type=[yearByYear,careerRegularSeason,rankings,rankingsByYear](team(league)),leagueListId=mlb_hist),xrefId,awards&site=en");
 	pr.responseType = 'json';
 	pr.send();
