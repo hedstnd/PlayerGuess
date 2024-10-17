@@ -1,4 +1,5 @@
 var player;
+var queries = new Object();
 var awards;
 var hitStats;
 var pitchStats;
@@ -18,7 +19,8 @@ var atL2 = new XMLHttpRequest();
 // var ssRec = new XMLHttpRequest();
 // var ssRec2 = new XMLHttpRequest();
 const awr = ["NLAS","ALAS","NLGG","ALGG","NLSS","ALSS","WSCHAMP","ROY","MVP","WSMVP"];
-const teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158, 1536, 1541, 1490, 1491, 1492, 1493, 1495, 1508, 1512, 1513, 1514, 1515, 1517, 1520, 1523, 1524, 1529, 1530, 1534];
+var teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158];
+var nlbTeams = [1536, 1541, 1490, 1491, 1492, 1493, 1495, 1508, 1512, 1513, 1514, 1515, 1517, 1520, 1523, 1524, 1529, 1530, 1534];
 
 
 
@@ -36,11 +38,21 @@ window.onload = function() {
 	var aJson = getData('./awards.json').then((val) => {
 		document.getElementById("prog").value = 75;
 		awardJson = val;
-		if (que.length > 0) {
+		if (que.length > 0 && !que.includes("=")) {
 			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear,sabermetrics](team(league)))");
 			pr.responseType = 'json';
 			pr.send();
+		} else if (que.length > 0 && que.includes("playerId")) {
+			var queSpl = que.split("&");
+			for (var i = 0; i < queSpl.length; i++) {
+				var query = queSpl[i].split("=");
+				queries[query[0]] = query[1];
+			}
+			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + queries.playerId + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear,sabermetrics](team(league)))");
+			pr.responseType = 'json';
+			pr.send();
 		} else {
+			teams = teams.concat(nlbTeams);
 			tm = teams[Math.round(Math.random() * (teams.length - 1))];
 			atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+tm+"/roster?rosterType=allTime");
 			atr.responseType = 'json'
@@ -199,6 +211,12 @@ async function setTable(pl) {
 	if (isPitcher(pl)) {
 		return setTablePitch(pl);
 	}
+	if (queries.startYear) {
+		hitStats = hitStats.filter(e => e.season >= parseInt(queries.startYear));
+	}
+	if (queries.endYear) {
+		hitStats = hitStats.filter(e => e.season <= parseInt(queries.endYear));
+	}
 	var ret = [];	
 	var head =  "<tr><th>Year</th><th>Team</th><th>G</th><th>PA</th><th>AB</th><th>R</th><th>H</th><th>2B</th><th>3B</th><th>HR</th><th>RBI</th><th>SB</th><th>CS</th><th>BB</th><th>SO</th><th>AVG</th><th>OBP</th><th>OPS</th><th>TB</th><th>GDP</th><th>HBP</th><th>SH</th><th>SF</th><th>IBB</th><th>POS</th><th>Awards</th></tr>";
 	document.getElementById("tg").innerHTML = head;
@@ -312,7 +330,8 @@ async function setTable(pl) {
 		}
 		if (!oneTeam && !hitStats[i].numTeams) {
 			// console.log('two team year');
-			yr.style.color = 'gray';
+			// yr.style.color = 'gray';
+			yr.className += " multi";
 		}
 		document.getElementById("tg").appendChild(yr);
 		
@@ -326,6 +345,7 @@ async function setTable(pl) {
 	carFirst.setAttribute("colspan","2");
 	car.appendChild(carFirst);
 	var careerNums = pl.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "career")[0].splits[0].stat;
+	carFirst.innerText += " (" + pl.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "career")[0].splits[0].numTeams + " Tms)";
 	for (var i = 2; i < 24; i++) {
 		var thisStat = document.createElement("th");
 		thisStat.innerText = careerNums[hitCats[i]];
@@ -345,6 +365,12 @@ function setTablePitch(pl) {
 	var ret = [];
 	head ="<table><tr><th>Year</th><th>Team</th><th>W</th><th>L</th><th>ERA</th><th>G</th><th>GS</th><th>GF</th><th>CG</th><th>SHO</th><th>SV</th><th>IP</th><th>H</th><th>R</th><th>ER</th><th>HR</th><th>BB</th><th>IBB</th><th>K</th><th>HBP</th><th>BK</th><th>WP</th><th>BF</th><th>WHIP</th><th>K:BB</th><th>Awards</th></tr>";
 	document.getElementById("tg").innerHTML = head;
+	if (queries.startYear) {
+		pitchStats = pitchStats.filter(e => e.season >= parseInt(queries.startYear));
+	}
+	if (queries.endYear) {
+		pitchStats = pitchStats.filter(e => e.season <= parseInt(queries.endYear));
+	}
 	for (var i = 0; i < pitchStats.length; i++) {
 		var yr = document.createElement("tr");
 		var statPush = [];
@@ -452,7 +478,8 @@ function setTablePitch(pl) {
 		}
 		if (!oneTeam && !pitchStats[i].numTeams) {
 			// console.log('two team year');
-			yr.style.color = 'gray';
+			// yr.style.color = 'gray';
+			yr.className+= " multi";
 		}
 		document.getElementById("tg").appendChild(yr);
 		
@@ -464,6 +491,7 @@ function setTablePitch(pl) {
 	carFirst.innerText = "Career";
 	carFirst.setAttribute("colspan","2");
 	car.appendChild(carFirst);
+	carFirst.innerText += " (" + pl.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "career")[0].splits[0].numTeams + " Tms)";
 	var careerNums = pl.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "career")[0].splits[0].stat;
 	for (var i = 2; i < 25; i++) {
 		var thisStat = document.createElement("th");
@@ -489,7 +517,8 @@ function correct() {
 	document.getElementById("guess").value = "";
 	document.getElementById("guess").setAttribute("disabled",true);
 	document.getElementById("btn").setAttribute("disabled",true);
-	document.getElementById("corr").innerText = "CORRECT!";
+	document.getElementById("corr").innerText = player.fullName;
+	document.getElementById("corr").style = "color:green;";
 }
 
 function incorrect(id) {
@@ -723,6 +752,7 @@ function getTeamAbbr(season) {
 }
 function giveUp() {
 	document.getElementById("corr").innerText = player.fullName;
+	document.getElementById("corr").style = "color:red;";
 	document.getElementById("guess").value = "";
 	document.getElementById("guess").setAttribute("disabled",true);
 	document.getElementById("btn").setAttribute("disabled",true);
