@@ -345,7 +345,9 @@ async function setTable(pl) {
 	carFirst.setAttribute("colspan","2");
 	car.appendChild(carFirst);
 	var careerNums = pl.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "career")[0].splits[0].stat;
-	carFirst.innerText += " (" + pl.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "career")[0].splits[0].numTeams + " Tms)";
+	if (pl.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "career")[0].splits[0].numTeams) {
+		carFirst.innerText += " (" + (pl.stats.filter(e => e.group.displayName == "hitting" && e.type.displayName == "career")[0].splits[0].numTeams || 1) + " Tms)";
+	}
 	for (var i = 2; i < 24; i++) {
 		var thisStat = document.createElement("th");
 		thisStat.innerText = careerNums[hitCats[i]];
@@ -491,7 +493,9 @@ function setTablePitch(pl) {
 	carFirst.innerText = "Career";
 	carFirst.setAttribute("colspan","2");
 	car.appendChild(carFirst);
-	carFirst.innerText += " (" + pl.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "career")[0].splits[0].numTeams + " Tms)";
+	if (pl.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "career")[0].splits[0].numTeams) {
+		carFirst.innerText += " (" + (pl.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "career")[0].splits[0].numTeams || 1) + " Tms)";
+	}
 	var careerNums = pl.stats.filter(e => e.group.displayName == "pitching" && e.type.displayName == "career")[0].splits[0].stat;
 	for (var i = 2; i < 25; i++) {
 		var thisStat = document.createElement("th");
