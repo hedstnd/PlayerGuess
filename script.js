@@ -221,7 +221,13 @@ function isTwoWay(person) {
 	if (person.primaryPosition.code == "Y") {
 		return true;
 	}
-	var fieldNums = person.stats.filter(e => e.type.displayName == "career" && e.group.displayName == "fielding")[0].splits;
+	var fieldNums;
+	try {
+		fieldNums = person.stats.filter(e => e.type.displayName == "career" && e.group.displayName == "fielding")[0].splits;
+	}catch (err) {
+		console.log("never played the field");
+		return false;
+	}
 	var pitchGms;
 	try {
 		pitchGms = parseInt(fieldNums.filter(e => e.position.code === "1")[0].stat.innings);
