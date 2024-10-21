@@ -232,7 +232,12 @@ function isTwoWay(person) {
 }
 
 function isNLBPitch(fieldNums) {
-	var pitchInn = parseInt(fieldNums.filter(e => e.position.code === "1")[0].stat.innings);
+	var pitchInn;
+	try {
+		pitchInn = parseInt(fieldNums.filter(e => e.position.code === "1")[0].stat.innings);
+	} catch (err) {
+		pitchInn = 0;
+	}
 	pitchInn = thirds(pitchInn);
 	var totalInn = thirds(fieldNums.map(e => parseInt(e.stat.innings)).reduce(getSum));
 	console.log("fldInn = " + totalInn);
