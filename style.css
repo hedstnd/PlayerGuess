@@ -70,6 +70,12 @@ tr:hover {
 .multi {
 	color: gray;
 }
+.record {
+	font-weight: bold;
+	font-style: italic;
+	background-color: gold;
+	/* color: maroon; */
+}
 @media (prefers-color-scheme: dark) {
 	.multi td {
 		border-color: gray !important;
@@ -98,5 +104,8 @@ tr:hover {
 	}
 	table, tr:last-child, table tbody tr:last-child th:first-child {
 		border-color: white;
+	}
+	.record {
+		color: maroon;
 	}
 }
