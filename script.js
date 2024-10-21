@@ -222,7 +222,12 @@ function isTwoWay(person) {
 		return true;
 	}
 	var fieldNums = person.stats.filter(e => e.type.displayName == "career" && e.group.displayName == "fielding")[0].splits;
-	var pitchGms = parseInt(fieldNums.filter(e => e.position.code === "1")[0].stat.innings);
+	var pitchGms;
+	try {
+		pitchGms = parseInt(fieldNums.filter(e => e.position.code === "1")[0].stat.innings);
+	} catch (err) {
+		pitchGms = 0;
+	}
 	var fieldGms = fieldNums.filter(e => e.position.code != "1").map(e => parseInt(e.stat.gamesStarted || e.stat.gamesPlayed)).reduce(getSum);
 	console.log("fldGms = " + fieldGms);
 	if ((pitchGms >= 100 || person.primaryPosition.code === "1") && fieldGms >= 30) {
