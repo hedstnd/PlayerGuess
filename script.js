@@ -228,7 +228,8 @@ function isTwoWay(person) {
 	} catch (err) {
 		pitchGms = 0;
 	}
-	var fieldGms = fieldNums.filter(e => e.position.code != "1").map(e => parseInt(e.stat.gamesStarted || e.stat.gamesPlayed)).reduce(getSum);
+	var fieldGms;
+	fieldGms = fieldNums.filter(e => e.position.code != "1").map(e => parseInt(e.stat.gamesStarted || e.stat.gamesPlayed)).reduce(getSum,0);
 	console.log("fldGms = " + fieldGms);
 	if ((pitchGms >= 100 || person.primaryPosition.code === "1") && fieldGms >= 30) {
 		return true;
@@ -244,7 +245,7 @@ function isNLBPitch(fieldNums) {
 		pitchInn = 0;
 	}
 	pitchInn = thirds(pitchInn);
-	var totalInn = thirds(fieldNums.map(e => parseInt(e.stat.innings)).reduce(getSum));
+	var totalInn = thirds(fieldNums.map(e => parseInt(e.stat.innings)).reduce(getSum,0));
 	console.log("fldInn = " + totalInn);
 	if (pitchInn/totalInn > 0.5) {
 		return true;
