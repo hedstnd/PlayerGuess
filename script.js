@@ -215,7 +215,11 @@ function isPitcher(person) {
 	if (person.primaryPosition.code != "X") {
 		return person.primaryPosition.code === "1";
 	} else {
-		return isNLBPitch(person.stats.filter(e => e.type.displayName == "career" && e.group.displayName == "fielding")[0].splits);
+		try {
+			return isNLBPitch(person.stats.filter(e => e.type.displayName == "career" && e.group.displayName == "fielding")[0].splits);
+		} catch (err) {
+			return false;
+		}
 	}
 }
 function isTwoWay(person) {
