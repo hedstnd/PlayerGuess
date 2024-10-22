@@ -10,6 +10,7 @@ var singleSeasonLead;
 var pitchRank;
 const hitCats = ["yr","tm","gamesPlayed","plateAppearances","atBats","runs","hits","doubles","triples","homeRuns","rbi","stolenBases","caughtStealing","baseOnBalls","strikeOuts","avg","obp","ops","totalBases","groundIntoDoublePlay","hitByPitch","sacBunts","sacFlies","intentionalWalks","pos","awards"];
 const pitchCats = ["yr","tm","wins","losses","era","gamesPitched","gamesStarted","gamesFinished","completeGames","shutouts","saves","inningsPitched","hits","runs","earnedRuns","homeRuns","baseOnBalls","intentionalWalks","strikeOuts","hitBatsmen","balks","wildPitches","battersFaced","whip","strikeoutWalkRatio","awards"];
+const rateStats = ["avg","obp","ops","era","whip","strikeoutWalkRatio"];
 var awardJson;
 var atr = new XMLHttpRequest();
 var pr = new XMLHttpRequest();
@@ -382,7 +383,7 @@ async function setTable(pl) {
 			}
 		}
 		for (var j = 0; j < 24; j++) {
-			if (hitStats[i].stat[hitCats[j]] == singleSeasonRecord(hitCats[j],"hitting")) {
+			if ((hitStats[i].stat[hitCats[j]] == singleSeasonRecord(hitCats[j],"hitting") || hitStats[i].stat[hitCats[j]] == parseInt(singleSeasonRecord(hitCats[j],"hitting"))) && player.id == singleSeasonRecordCheck(hitCats[j])) {
 				console.log("record" + hitCats[j] + " " + hitStats[i].season);
 				statPush[j].style.backgroundColor = "gold";
 				statPush[j].style.fontWeight = "bold";
@@ -532,8 +533,8 @@ function setTablePitch(pl) {
 				}
 			}
 		}
-		for (var j = 2; j < 24; j++) {
-			if (pitchStats[i].stat[pitchCats[j]] == singleSeasonRecord(pitchCats[j],"pitching")) {
+		for (var j = 2; j < 25; j++) {
+			if (pitchStats[i].player.id == singleSeasonRecordCheck(pitchCats[j],"pitching") && (pitchStats[i].stat[pitchCats[j]] == singleSeasonRecord(pitchCats[j],"pitching") || pitchStats[i].stat[pitchCats[j]] == parseInt(singleSeasonRecord(pitchCats[j],"pitching")))) {
 				console.log("record" + pitchCats[j] + " " + pitchStats[i].season);
 				statPush[j].style.backgroundColor = "gold";
 				statPush[j].style.fontWeight = "bold";
@@ -890,6 +891,26 @@ function singleSeasonRecord(abbr,hitOrPitch) {
 		return singleSeasonLead.filter(e => e.leaderCategory == (getAbbrev(abbr) || abbr) && e.statGroup == hitOrPitch)[0].leaders[0].value;
 	} catch {
 		return -1;
+	}
+}
+function singleSeasonRecordCheck(abbr,hitOrPitch) {
+	console.log(abbr);
+	if (rateStats.includes(abbr)) {
+		console.log("rate stat!");
+		try {
+			return singleSeasonLead.filter(e => e.leaderCategory == (getAbbrev(abbr) || abbr) && e.statGroup == hitOrPitch)[0].leaders[0].person.id;
+		} catch (err) {
+			console.log(err);
+			console.log(abbr);
+			console.log(singleSeasonLead.filter(e => e.leaderCategory == (getAbbrev(abbr) || abbr) && e.statGroup == hitOrPitch));
+			console.log(hitOrPitch);
+			return -1;
+		}
+	} else {
+		console.log(rateStats.filter(e => e === abbr));
+		console.log(rateStats);
+		console.log(abbr);
+		return player.id;
 	}
 }
 async function getData(url) {
