@@ -305,7 +305,7 @@ async function setTable(pl) {
 			document.getElementById("tg").appendChild(emptyRow);
 		}
 		var warAdd = 0;
-		var warGrab = await getData("https://statsapi.mlb.com/api/v1/people/"+player.id+"?hydrate=stats(group=batting,type=sabermetrics,season="+hitStats[i].season+")").then((sab) => {
+		var warGrab = await getData("https://statsapi.mlb.com/api/v1/people/"+player.id+"?hydrate=stats(group=hitting,type=sabermetrics,season="+hitStats[i].season+")").then((sab) => {
 			var metrics = sab.people[0];
 			if (metrics.stats) {
 				if (metrics.stats[0].splits.length > 1) {
