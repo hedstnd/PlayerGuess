@@ -453,6 +453,7 @@ async function setTable(pl) {
 		document.getElementById("prog").style.display = "none";
 		document.getElementById("load").style.display = "none";
 		document.getElementById("tg").style.display = '';
+		document.getElementById("guess").focus();
 	}
 	return true;
 }
@@ -627,6 +628,7 @@ async function setTablePitch(pl) {
 	document.getElementById("prog").style.display = "none";
 	document.getElementById("load").style.display = "none";
 	document.getElementById("tg").style.display = '';
+	document.getElementById("guess").focus();
 	return true;
 }
 
