@@ -41,8 +41,18 @@ window.onload = function() {
 	var aJson = getData('./awards.json').then((val) => {
 		document.getElementById("prog").value = 60;
 		awardJson = val;
+		if (que.length == 0) {
+			var rand = Math.round(Math.random * 10000);
+			if (rand == 167) {
+				que = 300001;
+			}
+		}
 		if (que.length > 0 && !que.includes("=")) {
-			pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear,sabermetrics](team(league)))");
+			if (que != 300001) {
+				pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear,sabermetrics](team(league)))");
+			} else {
+				pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(gameType=S,group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear,sabermetrics](team(league)))");
+			}
 			pr.responseType = 'json';
 			pr.send();
 		} else if (que.length > 0 && que.includes("playerId")) {
@@ -226,6 +236,9 @@ function isPitcher(person) {
 }
 function isTwoWay(person) {
 	if (person.primaryPosition.code == "Y") {
+		return true;
+	}
+	if (person.id == 300001) {
 		return true;
 	}
 	var fieldNums;
