@@ -25,7 +25,11 @@ const awr = ["NLAS","ALAS","NLGG","ALGG","NLSS","ALSS","WSCHAMP","ROY","MVP","WS
 var teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   117,   118,   119,   120,   121,   133,   134,   135,   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,   146,   147,   158];
 var nlbTeams = [1536, 1541, 1490, 1491, 1492, 1493, 1495, 1508, 1512, 1513, 1514, 1515, 1517, 1520, 1523, 1524, 1529, 1530, 1534];
 
-
+document.onkeyup = function(e) {
+  if (e.ctrlKey && e.altKey && e.which == 71) {
+	giveUp();
+  }
+};
 
 window.onload = function() {
 	var que = window.location.search.substring(1);
