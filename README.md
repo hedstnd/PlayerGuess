@@ -5,3 +5,6 @@ Put an MLB.com player ID in the URL as a parameter (ie hedstnd.github.io/PlayerG
 
 To limit the stats to certain years, use these parameters: playerId for MLB.com player ID, startYear for the start year of stats, and endYear for the last year to display! You can also use only one of startYear and endYear if you only want to show the beginning or end of someone's career
 usage example: hedstnd.github.io/playerGuess?playerId=547180&startYear=2019&endYear=2022 would show Bryce Harper's first four years with the Phillies (2019, 2020, 2021, 2022)
+
+To limit the player pool to a specific team's all-time roster, use the team parameter with the MLB.com team ID
+usage example: hedstnd.github.io/playerGuess?team=143 would show a random player who played at least one game for the Phillies in their career
