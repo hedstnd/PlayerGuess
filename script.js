@@ -51,6 +51,13 @@ window.onload = function() {
 				que = 300001;
 			}
 		}
+		if (que.length > 0 && que.includes("=")) {
+			var queSpl = que.split("&");
+			for (var i = 0; i < queSpl.length; i++) {
+				var query = queSpl[i].split("=");
+				queries[query[0]] = query[1];
+			}
+		}
 		if (que.length > 0 && !que.includes("=")) {
 			if (que != 300001) {
 				pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + que + "?hydrate=xrefId,awards,stats(group=[hitting,pitching,fielding],type=[career,rankings,yearByYear,rankingsByYear,sabermetrics](team(league)))");
@@ -71,7 +78,11 @@ window.onload = function() {
 		} else {
 			teams = teams.concat(nlbTeams);
 			tm = teams[Math.round(Math.random() * (teams.length - 1))];
-			atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+tm+"/roster?rosterType=allTime");
+			if (!queries.team) {
+				atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+tm+"/roster?rosterType=allTime");
+			} else {
+				atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+queries.team+"/roster?rosterType=allTime");
+			}
 			atr.responseType = 'json'
 			atr.send();
 		}
