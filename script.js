@@ -3,6 +3,7 @@ var queries = new Object();
 var awards;
 var pitchWar = 0;
 var batWar = 0;
+var hideTeams = false;
 var hitStats;
 var pitchStats;
 var fieldStats;
@@ -758,8 +759,11 @@ function playerSearch() {
 	}
 }
 function getTeamAbbr(season) {
+	if (queries.hideTeams == "true") {
+		return "";
+	}
 	if (season.numTeams) {
-		return "TOT";
+		return season.numTeams + "TM";
 	// } else if (season.team.name == "Milwaukee Brewers" && parseInt(season.season) < 1954) {
 		// return "MLA";
 	// } else if (season.team.name == "Washington Senators" && parseInt(season.season) > 1960) {
