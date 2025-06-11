@@ -27,7 +27,7 @@ var teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   1
 var nlbTeams = [1536, 1541, 1490, 1491, 1492, 1493, 1495, 1508, 1512, 1513, 1514, 1515, 1517, 1520, 1523, 1524, 1529, 1530, 1534];
 
 document.onkeyup = function(e) {
-  if (e.ctrlKey && e.altKey && e.which == 71) {
+  if ((e.ctrlKey && e.altKey && e.which == 71) || (e.metaKey && e.which == 79)){
 	giveUp();
   }
 };
@@ -79,10 +79,14 @@ window.onload = function() {
 		} else {
 			teams = teams.concat(nlbTeams);
 			tm = teams[Math.round(Math.random() * (teams.length - 1))];
-			if (!queries.team) {
-				atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+tm+"/roster?rosterType=allTime");
+			if (queries.awardId) {
+				atr.open("GET","https://statsapi.mlb.com/api/v1/awards/"+queries.awardId+"/recipients");
 			} else {
-				atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+queries.team+"/roster?rosterType=allTime");
+					if (!queries.team) {
+					atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+tm+"/roster?rosterType=allTime");
+				} else {
+					atr.open("GET","https://statsapi.mlb.com/api/v1/teams/"+queries.team+"/roster?rosterType=allTime");
+				}
 			}
 			atr.responseType = 'json'
 			atr.send();
@@ -130,7 +134,12 @@ atL2.onload = function() {
 }
 atr.onload = function() {
 	document.getElementById("prog").value = 80;
-	pId = atr.response.roster[Math.max(0,Math.round(Math.random() * atr.response.roster.length) - 1)].person.id;
+	var pId;
+	if (!queries.awardId) {
+		pId = atr.response.roster[Math.max(0,Math.round(Math.random() * atr.response.roster.length) - 1)].person.id;
+	} else {
+		pId = atr.response.awards[Math.floor(Math.random() * atr.response.awards.length)].player.id;
+	}
 	pr.open("GET","https://statsapi.mlb.com/api/v1/people/" + pId + "?hydrate=currentTeam,team,stats(group=[hitting,pitching,fielding],type=[yearByYear,careerRegularSeason,rankings,rankingsByYear](team(league)),leagueListId=mlb_hist),xrefId,awards&site=en");
 	pr.responseType = 'json';
 	pr.send();
