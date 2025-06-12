@@ -27,7 +27,7 @@ var teams = [   108,   109,   110,   111,   112,   113,   114,   115,   116,   1
 var nlbTeams = [1536, 1541, 1490, 1491, 1492, 1493, 1495, 1508, 1512, 1513, 1514, 1515, 1517, 1520, 1523, 1524, 1529, 1530, 1534];
 
 document.onkeyup = function(e) {
-  if ((e.ctrlKey && e.altKey && e.which == 71) || (e.metaKey && e.which == 79)){
+  if ((e.ctrlKey && e.altKey && e.which == 71) || (e.metaKey && e.which == 79) || (e.ctrlKey && e.which == 71)){
 	giveUp();
   }
 };
