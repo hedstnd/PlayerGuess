@@ -51425,7 +51425,7 @@
     "awardID": "MVP",
     "yearID": 2022,
     "lgID": "NL",
-    "playerID": "schwaka01",
+    "playerID": "schwaky01",
     "pointsWon": 2
   },
   {
@@ -52658,6 +52658,636 @@
     "yearID": 2024,
     "lgID": "AL",
     "playerID": "valdefr01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "baldwdr01",
+    "pointsWon": 183
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "hortoca01",
+    "pointsWon": 139
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "durbica01",
+    "pointsWon": 69
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "colliis01",
+    "pointsWon": 62
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "lileda01",
+    "pointsWon": 17
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "ramirag01",
+    "pointsWon": 10
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "patrich01",
+    "pointsWon": 9
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "marseja01",
+    "pointsWon": 8
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "dreyeja01",
+    "pointsWon": 4
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "shawma01",
+    "pointsWon": 4
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "mcleano01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "misioja01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "hernahe01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "kurtzni01",
+    "pointsWon": 210
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "wilsoja05",
+    "pointsWon": 107
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "anthoro01",
+    "pointsWon": 72
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "camerno01",
+    "pointsWon": 54
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "montgco01",
+    "pointsWon": 23
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "narvaca01",
+    "pointsWon": 21
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "leiteja01",
+    "pointsWon": 6
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "warrewi01",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "keaclu01",
+    "pointsWon": 3
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "fishebr02",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "cmithca07",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "smithsh02",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "dominja01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "morallu01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "RoY",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "simpsch01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "skenepa01",
+    "pointsWon": 210
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "sanchcr01",
+    "pointsWon": 120
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "yamamyo01",
+    "pointsWon": 72
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "webblo01",
+    "pointsWon": 47
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "peralfr01",
+    "pointsWon": 44
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "pivetni01",
+    "pointsWon": 7
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "luzarje01",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "abbotan01",
+    "pointsWon": 4
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "wheelza01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "skubata01",
+    "pointsWon": 198
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "crochga01",
+    "pointsWon": 132
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "brownhu01",
+    "pointsWon": 80
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "friedma01",
+    "pointsWon": 61
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "woobr01",
+    "pointsWon": 26
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "rodonca01",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "chapmar01",
+    "pointsWon": 4
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "degroja01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "rasmudr01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "CYA",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "rogertr01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "ohtansh01",
+    "pointsWon": 420
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "schwaky01",
+    "pointsWon": 260
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "sotoju01",
+    "pointsWon": 231
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "perdoge01",
+    "pointsWon": 196
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "turnetr01",
+    "pointsWon": 102
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "skenepa01",
+    "pointsWon": 83
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "carroco02",
+    "pointsWon": 83
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "tatisfe02",
+    "pointsWon": 78
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "crowape01",
+    "pointsWon": 63
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "lindofr01",
+    "pointsWon": 61
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "alonspe01",
+    "pointsWon": 48
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "yelicch01",
+    "pointsWon": 34
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "freemfr01",
+    "pointsWon": 29
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "turanbr02",
+    "pointsWon": 23
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "sanchcr01",
+    "pointsWon": 16
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "buschmi02",
+    "pointsWon": 11
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "machama01",
+    "pointsWon": 11
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "olsonma02",
+    "pointsWon": 7
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "hoernni01",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "suzukse01",
+    "pointsWon": 3
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "smithwi05",
+    "pointsWon": 3
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "marteke01",
+    "pointsWon": 2
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "NL",
+    "playerID": "delacel01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "judgeaa01",
+    "pointsWon": 355
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "raleica01",
+    "pointsWon": 335
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "ramirjo01",
+    "pointsWon": 224
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "wittbo02",
+    "pointsWon": 215
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "skubata01",
+    "pointsWon": 139
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "rodriju01",
+    "pointsWon": 136
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "springe01",
+    "pointsWon": 125
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "crochga01",
+    "pointsWon": 74
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "caminju01",
+    "pointsWon": 37
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "penaje02",
+    "pointsWon": 32
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "buxtoby01",
+    "pointsWon": 30
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "kurtzni01",
+    "pointsWon": 29
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "guerrvl02",
+    "pointsWon": 14
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "bellico01",
+    "pointsWon": 7
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "garcima01",
+    "pointsWon": 7
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "bichebo01",
+    "pointsWon": 5
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "greenri03",
+    "pointsWon": 3
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "chapmar01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "diazya01",
+    "pointsWon": 1
+  },
+  {
+    "awardID": "MVP",
+    "yearID": 2025,
+    "lgID": "AL",
+    "playerID": "wilsoja05",
     "pointsWon": 1
   }
 ]
